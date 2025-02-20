@@ -69,7 +69,7 @@ def plot_matrix(matrix):
     fig, ax = plt.subplots()
 
     # Display the matrix as an image with the red-orange colormap
-    cax = ax.imshow(matrix, cmap='Reds', interpolation='nearest')
+    cax = ax.imshow(matrix, cmap='Oranges', interpolation='nearest')
 
     # Remove axis labels and ticks
     ax.set_xticks([])
@@ -85,20 +85,18 @@ def plot_matrix(matrix):
         for j in range(matrix.shape[1]):
             if not np.isnan(matrix[i, j]):  # Skip NaN values
                 text = f"{matrix[i, j]:.1f}"  # Format to 1 decimal place
-                ax.text(j, i, text, ha='center', va='center', color='grey', fontsize=10)
+                ax.text(j, i, text, ha='center', va='center', color='black', fontsize=10)
 
-    # Set title
-    plt.title("Temperture Field", fontsize=14)
+    plt.title("Temperature Field (K)", fontsize=14)
 
-    # Show plot
     plt.show()
 
 #Knowns
 To_inf = 1700
-ho = 1000
+ho = 788
 Ti_inf = 400
 hi = 200
-k = 25
+k = 50
 dx = .001
 known = np.array([To_inf, ho, Ti_inf, hi, k, dx])
 
@@ -115,5 +113,7 @@ matrix = np.array([[T1, T2, T3, T4, T5, T6],
                    [T19, T20, T21, np.nan, np.nan, np.nan]])
 
 
+q = 4*hi*((dx/2)*(T21 - Ti_inf)+dx*(T15-Ti_inf)+dx*(T16-Ti_inf)+dx*(T17-Ti_inf)+dx/2*(T18-Ti_inf))
+print(f"q' = {q} W/m")
 
 plot_matrix(matrix)
